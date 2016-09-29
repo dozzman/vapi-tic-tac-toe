@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	private string playerSide;
 	public Text gameOverText;
 	public GameObject gameOverPanel;
+	public bool isGameOver;
 	private int moveCount;
 
 	void Awake() {
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour {
 		playerSide = "X";
 		gameOverPanel.SetActive (false);
 		moveCount = 0;
+		isGameOver = false;
 	}
 
 	// Use this for initialization
@@ -108,6 +110,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		SetGameOverText (playerSide + " Wins!");
+		isGameOver = true;
 
 	}
 
