@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class GameController : MonoBehaviour {
 
@@ -10,6 +11,11 @@ public class GameController : MonoBehaviour {
 	public GameObject gameOverPanel;
 	public bool isGameOver;
 	private int moveCount;
+
+	private Player player1;
+	private Player player2;
+
+	public readonly static Queue ExecuteOnMainThread = new Queue();
 
 	void Awake() {
 		SetGameControllerReferenceOnButtons ();
@@ -25,7 +31,12 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// dispatch stuff on main thread
+    	while (ExecuteOnMainThread.Count > 0)
+    	{
+    		
+    		((Action)ExecuteOnMainThread.Dequeue()).Invoke();
+    	}
 	}
 
 	void SetGameControllerReferenceOnButtons() {
